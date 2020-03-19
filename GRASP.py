@@ -226,7 +226,7 @@ class SAT:
             if self.counter == 50:
                 self.PrintMostSatisfiableAssignments()
             return 0
-
+            
         else:
             self.numOfSatClauses = self.numOfClauses
             if self.dictChoice == "" or self.dictChoice == "currentAssignment":
@@ -235,10 +235,9 @@ class SAT:
             elif self.dictChoice == "closestAssignment":
                 self.tempAssignmentsLiteral = copy.deepcopy(self.tempAssignmentsLiteralCopy)
                 self.tempAssignmentsComplementLiteral = copy.deepcopy(self.tempAssignmentsComplementLiteralCopy)
-            print("There is/are solution(s) for this 3-SAT problem.\n")
-
-        self.PrintMostSatisfiableAssignments()
-        return 1
+            print("There is/are solution(s) for this 3-SAT problem.")
+            self.PrintMostSatisfiableAssignments()
+            return 1
 
 
     '''Print out the most satisfied result'''
@@ -252,7 +251,9 @@ class SAT:
         for i1 in self.tempAssignmentsComplementLiteral:
             print("{}\t\t{}".format(i1,self.tempAssignmentsComplementLiteral[i1]))
         print("=======================")'''
-        print("The best it can hit is ",self.numOfSatClauses,"/",self.numOfClauses,"clauses.\n")
+        print("The best it can hit is ",self.numOfSatClauses,"/",self.numOfClauses,"clauses.")
+   
+
 
        
 
@@ -260,17 +261,14 @@ if __name__ == '__main__':
     a = SAT()
     counter = 1
     checkResult = 3
-    #start = time.time()
-    _input = 16
-
+    start = time.time()
+    _input = 15
 
     a.LiteralListGenerator(_input)
     a.DictKeyValueGenerator(_input)
     
     print("Problem Generation: " + a.ProblemGenerator(30) + "\n")
     o = a.CheckOccurrence()
-    print("Number of Occurrence: " , o)
-    print()
     print("Checking for the most satisfied assignment...\n")
     
     while counter < 50 and checkResult != 1:
@@ -280,14 +278,13 @@ if __name__ == '__main__':
         else:
             a.AssignValueNeighbour(o,counter)
         
+        
         b = a.CheckClauses(a.AssignValueFormula())
         checkResult = a.CheckProblem(b)
         counter += 1
-            
-            
+        
 
 
-            
-        #end = time.time()
-        #print("Total Computing time: ",end-start,"s\n")
-
+        
+    end = time.time()
+    print("\nTotal Computing time: ",end-start,"s")
